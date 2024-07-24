@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  niklesapp:
+    build: .
+    ports:
+      - "1046:1046"
+    environment:
+      - PORT=1046
+      - MYSQL_HOST=34.73.44.194
+      - MYSQL_PORT=3306
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    env_file:
+      - .env
+    volumes:
+      - ./app:/usr/src/app/app
+      - ./logs:/usr/src/app/logs
+    command: uvicorn app.main:app --host 0.0.0.0 --port 1046 --reload
+
+volumes:
+  mysql-data: {} # Define the empty volume
